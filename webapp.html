@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin: 20px;
+        }
+        .chess-board {
+            display: grid;
+            grid-template-columns: repeat(8, 60px);
+            grid-template-rows: repeat(8, 60px);
+            margin: 20px auto;
+            border: 3px solid #333;
+        }
+        .tile {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .white {
+            background-color: #fff;
+        }
+        .black {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chess Game</h1>
+    <div id="chessBoard" class="chess-board"></div>
+    
+    <script>
+        const pieces = {
+            0: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'], // Black major pieces
+            1: Array(8).fill('P'), // Black pawns
+            6: Array(8).fill('P'), // White pawns
+            7: ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']  // White major pieces
+        };
+
+        const board = [];
+
+        function createBoard() {
+            const chessBoard = document.getElementById('chessBoard');
+            let isWhite = true;
+
+            for (let i = 0; i < 8; i++) {
+                board[i] = [];
+                for (let j = 0; j < 8; j++) {
+                    const tile = document.createElement('div');
+                    tile.className = `tile ${isWhite ? 'white' : 'black'}`;
+                    board[i][j] = tile;
+
+                    // Add pieces
+                    if (pieces[i]) {
+                        tile.innerText = pieces[i][j] || '';
+                    }
+
+                    chessBoard.appendChild(tile);
+                    isWhite = !isWhite;
+                }
+                isWhite = !isWhite; // Alternate rows
+            }
+        }
+
+        createBoard();
+
+        // Simple starting point for user interaction
+        alert('Drag and drop pieces to move them! Note: AI functionality not implemented yet.');
+    </script>
+</body>
+</html>
